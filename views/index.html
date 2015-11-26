@@ -1,11 +1,76 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Test</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1>Test</h1>
-    <p>Welcome to Test</p>
-  </body>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="/jquery/jquery-2.1.4.min.js"></script>
+
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="/bootstrap/css//bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="/angular/angular.min.js"></script>
+    <script src="/angular/angular-route.min.js"></script>
+    <script src="/javascripts/app.js"></script>
+    <script src="/javascripts/CreateController.js"></script>
+
+
+
+</head>
+<body data-ng-app="ick">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Brand</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#/">Strona główna</a></li>
+                <li><a href="#">Link</a></li>
+            </ul>
+
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Ustawienia</a></li>
+                <li><a href="/login.html">Wyloguj</a></li>
+            </ul>
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container" data-ng-view>
+
+</div>
+
+<!--<script type="text/ng-template" id="index">-->
+
+<!--</script>-->
+
+
+<!--<script type="text/ng-template" id="management">-->
+
+<!--</script>-->
+
+<!--<script type="text/ng-template" id="test">-->
+    <!--Hello T-->
+<!--</script>-->
+
+
+</body>
 </html>

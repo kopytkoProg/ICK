@@ -1,0 +1,89 @@
+<h1 class="text-center">Nowy konkurs</h1>
+<hr>
+
+
+<form class="form-horizontal">
+    <div class="form-group">
+        <label for="inputName" class="col-sm-5 control-label">Nazwa</label>
+
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="inputName" placeholder="Nazwa">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputTyp" class="col-sm-5 control-label">Typ konkursu</label>
+
+        <div class="col-sm-3">
+            <select class="form-control" id="inputTyp" name="inputTyp" ng-model="data.inputTyp" ng-change="inputTypeChange(data.inputTyp)"  placeholder="Nazwa">
+                <option value="L">Losowanie</option>
+                <option value="K">Konkurs</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputRules" class="col-sm-5 control-label">Zasady</label>
+
+        <div class="col-sm-3">
+            <textarea class="form-control" id="inputRules" placeholder="Nazwa"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputAwardDescription" class="col-sm-5 control-label">Opis nagrody</label>
+
+        <div class="col-sm-3">
+            <textarea class="form-control" id="inputAwardDescription" placeholder="Nazwa"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputFile" class="col-sm-5 control-label">Obraz</label>
+
+        <div class="col-sm-3">
+            <input class="form-control" type="file" id="inputFile" data-icon="false">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputWiners" class="col-sm-5 control-label">Liczba zwycięzców</label>
+
+        <div class="col-sm-3">
+            <input class="form-control" type="number" id="inputWiners" data-icon="false" value="1" min="1" max="10">
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="inputFor" class="col-sm-5 control-label">Konkurs dla</label>
+
+        <div class="col-sm-3" id="inputFor">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value=""> Suby
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value=""> Followersi
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value=""> Wszyscy
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-5 col-sm-3">
+            <!--<button type="submit" class="btn btn-default">Utwórz</button>-->
+            <a href="#/competition" id="sendButton" class="btn btn-primary btn-block">Utwórz</a>
+
+        </div>
+    </div>
+
+
+</form>
