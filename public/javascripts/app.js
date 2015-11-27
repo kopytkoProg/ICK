@@ -45,7 +45,9 @@ ick.config(['$routeProvider',
         }).
         when('/winnerList', {
             templateUrl: 'indexPartial/winnerList.html'
-
+        }).
+        when('/changeTemplateTheme', {
+            templateUrl: 'indexPartial/changeTemplateTheme.html'
         }).
         when('/entry', {
             templateUrl: 'indexPartial/entry.html'
@@ -53,6 +55,10 @@ ick.config(['$routeProvider',
         }).
         when('/winnerList_2', {
             templateUrl: 'indexPartial/winnerList_2.html'
+
+        }).
+        when('/settings', {
+            templateUrl: 'indexPartial/settings.html'
 
         }).otherwise({
             redirectTo: '/'
