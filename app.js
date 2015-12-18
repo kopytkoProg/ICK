@@ -5,14 +5,21 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var debug = require('debug')('ICK:app');
+var cookieSession = require('cookie-session');
+var flash = require('connect-flash');
 
-var users = require('./routes/users');
+
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 
 var app = express();
 
+var db = require('./db/db');
+
 // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'view_to_render'));
+app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -24,8 +31,68 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 
 
-app.use('/users', users);
+//app.use(express.session({secret: 'iahbsdfoiuphqa'}));
+app.use(cookieSession({
+    name: 'session',
+    keys: ['s1', 's2', 's3', 's4']
+}));
+app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+    done(null, user);
+});
+
+
+passport.use('local-signup', new LocalStrategy(
+    {
+        usernameField: 'login',
+        passwordField: 'password'
+    },
+    function (login, password, done) {
+
+        db.User.findOne({
+            where: {
+                login: login,
+                password: password
+            }
+        }).then(function (user) {
+            if (!user) {
+                return done(null, false, {message: 'Incorrect login or password.'});
+            }
+            return done(null, user);
+        });
+
+        //return done(null, false, {message: 'Incorrect password.'});
+        //return done(null, {p:'user'});
+    }
+));
+
+
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/login.ejs');
+}
+//======================================================================================================================
+
+
+app.use('/users', require('./routes/users'));
+app.use('/login', require('./routes/login'));
+
+
+//======================================================================================================================
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

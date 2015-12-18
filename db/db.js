@@ -14,16 +14,22 @@ var db = new Sequelize('db', 'user', 'pass_to_db', {
     //    idle: 10000
     //},
 
-    storage: './db_file/db.sqlite'
+    storage: __dirname + '/db_file/db.sqlite'
 });
-
-
-
 
 /**
  * @typedef {Object} DB_User
  * @property {string} first_name
  * @property {string} last_name
+ * @property {string} email
+ * @property {string} trade_link
+ * @property {string} password
+ * @property {string} login
+ *
+ */
+/**
+ *
+ * @type {Model}
  */
 var User = db.define('user',
     {
@@ -32,20 +38,40 @@ var User = db.define('user',
         },
         last_name: {
             type: Sequelize.STRING
+        },
+        email: {
+            type: Sequelize.STRING
+        },
+        login: {
+            type: Sequelize.STRING
+        },
+        password: {
+            type: Sequelize.STRING
+        },
+        trade_link: {
+            type: Sequelize.STRING
         }
+
+
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
     });
 
+
 /**
  * @typedef {Object} DB_Competition
  * @property {string} name
+ * @property {string} description
  */
 var Competition = db.define('competition',
     {
         name: {
             type: Sequelize.STRING
+        },
+        description: {
+            type: Sequelize.STRING
         }
+
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
     });
@@ -66,6 +92,16 @@ Competition.belongsToMany(User, {
         unique: false
     },
     foreignKey: 'competition_id'
+});
+
+Competition.belongsTo(User, {
+    as: 'owner',
+    foreignKey: 'owner_id'
+});
+
+User.hasMany(Competition, {
+    as: 'organizes',
+    foreignKey: 'owner_id'
 });
 
 // =====================================================================================================================
