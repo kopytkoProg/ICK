@@ -10,6 +10,10 @@ router.get('/', function(req, res, next) {
     res.render('login', { messages: messages });
 });
 
+router.get('/logout', function(req, res, next) {
+    req.logout();
+    res.redirect('/login');
+});
 
 router.post('/',
     passport.authenticate('local-signup', {
@@ -18,6 +22,7 @@ router.post('/',
         failureFlash: true
     })
 );
+
 
 
 module.exports = router;

@@ -27,9 +27,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'views')));
-
 
 //app.use(express.session({secret: 'iahbsdfoiuphqa'}));
 app.use(cookieSession({
@@ -47,7 +44,11 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(function (user, done) {
-    done(null, user);
+    db.User.findById(user.id).then(
+        /** @param {DB_User} user */
+        function (user) {
+            done(null, user);
+        });
 });
 
 
@@ -67,11 +68,12 @@ passport.use('local-signup', new LocalStrategy(
             if (!user) {
                 return done(null, false, {message: 'Incorrect login or password.'});
             }
-            return done(null, user);
+            user.last_login = new Date();
+            user.save();
+            var u = {login: user.login, id: user.id};
+            return done(null, u);
         });
 
-        //return done(null, false, {message: 'Incorrect password.'});
-        //return done(null, {p:'user'});
     }
 ));
 
@@ -83,13 +85,16 @@ function isLoggedIn(req, res, next) {
         return next();
 
     // if they aren't redirect them to the home page
-    res.redirect('/login.ejs');
+    res.redirect('/login');
 }
 //======================================================================================================================
 
 
-app.use('/users', require('./routes/users'));
 app.use('/login', require('./routes/login'));
+app.use('/users', isLoggedIn, require('./routes/users'));
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(isLoggedIn, express.static(path.join(__dirname, 'views')));
 
 
 //======================================================================================================================

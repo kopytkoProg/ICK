@@ -25,6 +25,7 @@ var db = new Sequelize('db', 'user', 'pass_to_db', {
  * @property {string} trade_link
  * @property {string} password
  * @property {string} login
+ * @property {Date} last_login
  *
  */
 /**
@@ -40,17 +41,27 @@ var User = db.define('user',
             type: Sequelize.STRING
         },
         email: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            unique: true,
+            allowNull: false
         },
         login: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            unique: true,
+            allowNull: false
         },
         password: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false
         },
         trade_link: {
             type: Sequelize.STRING
+        },
+        last_login: {
+            type: Sequelize.DATE,
+            defaultValue: function(){return new Date();}
         }
+
 
 
     }, {
